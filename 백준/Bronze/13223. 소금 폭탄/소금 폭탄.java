@@ -1,29 +1,35 @@
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-        public static void main(String[] args) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int[] currentTime = Arrays.stream(sc.nextLine().split(":")).mapToInt(Integer::parseInt).toArray();
-        int[] setTime = Arrays.stream(sc.nextLine().split(":")).mapToInt(Integer::parseInt).toArray();
+        int[] current = timeSeperator(sc.nextLine());
+        int[] target = timeSeperator(sc.nextLine());
 
+        int h = target[0]-current[0];
+        int m = target[1]-current[1];
+        int s = target[2]-current[2];
 
-        LocalTime setLocalTime = LocalTime.of(setTime[0], setTime[1], setTime[2]);
-        LocalTime currentLocalTime = LocalTime.of(currentTime[0], currentTime[1], currentTime[2]);
-        String localTime;
-        if (setLocalTime.equals(currentLocalTime)) {
-            localTime = "24:00:00";
-        } else {
-            localTime = LocalTime.of(setTime[0], setTime[1], setTime[2])
-                    .minusSeconds(currentTime[2])
-                    .minusMinutes(currentTime[1])
-                    .minusHours(currentTime[0]).format(formatter);
+        if(s<0) {
+            s+=60;
+            m--;
         }
+        if(m<0) {
+            m+=60;
+            h--;
+        }
+        if(h<0) {
+            h+=24;
+        }
+        if(h==0 & m==0 & s==0) {
+            h=24;
+        }
+        
+        System.out.printf("%02d:%02d:%02d", h, m, s);
+    }
 
-        System.out.println(localTime.toString());
+    public static int[] timeSeperator(String times) {
+        return Arrays.stream(times.split(":")).mapToInt(Integer::parseInt).toArray();
     }
 
 }
