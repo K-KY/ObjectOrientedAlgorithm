@@ -1,32 +1,35 @@
 import java.io.*;
 import java.util.*;
+
+//직전 문자 저장 -> char prev
+//사용된 문자 배열 저장 -> list used
+//현재 문자와 직전 문자와 다른데 사용된 문자 배열에 현재 문자가 있다면 그룹 단어가 아님
+
 public class Main {
-        public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int i = Integer.parseInt(reader.readLine());
-        int a = 0;
-        for (int j = 0; j < i; j++) {
-            String s = reader.readLine();
-
-            if (isTrue(s)) {
-                a++;
+        int roop = Integer.parseInt(reader.readLine());
+        int answer = 0;
+        for (int i = 0; i < roop; i++) {
+            String target = reader.readLine();
+            if (isTrue(target)) {
+                answer++;
             }
-
         }
-        System.out.println(a);
+        System.out.println(answer);
     }
-
-    public static boolean isTrue(String s) {
+    
+    public static boolean isTrue(String target) {
+        Set<Character> used = new HashSet();
         char prev = '@';
-        List<Character> chars = new ArrayList<>();
-        for (int i = 0; i < s.length(); i++) {
-            if (prev != s.charAt(i) && chars.contains(s.charAt(i))) {
+        for (int i = 0; i < target.length(); i++) {
+            char turn = target.charAt(i);
+            if (turn != prev && used.contains(turn)) {
                 return false;
-            }
-            chars.add(s.charAt(i));
-            prev = s.charAt(i);
+            };
+            prev = turn;
+            used.add(turn);
         }
         return true;
     }
-
 }
