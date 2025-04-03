@@ -7,8 +7,6 @@ public class p2557 {
         Printer printer = new Printer();
         printer.print("Hello World!");
     }
-
-
 }
 
 class Printer {
