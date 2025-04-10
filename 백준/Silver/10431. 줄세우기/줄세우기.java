@@ -4,6 +4,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         int loop = Integer.parseInt(in.nextLine());
         int sb = 0;
+        StringBuilder builder = new StringBuilder();
         while (loop-- > 0) {
             sb = 0;
             int[] arr = Arrays.stream(in.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
@@ -16,8 +17,12 @@ public class Main {
                 }
                 sb+=count;
             }
-            System.out.println(arr[0]+ " " + sb);
+            builder.append(arr[0]+ " " + sb).append("\n");
         }
+        
+        System.out.println(builder);
 
     }
 }
+
+
