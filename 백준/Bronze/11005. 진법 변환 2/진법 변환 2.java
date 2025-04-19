@@ -1,19 +1,32 @@
-import java.util.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.Stack;
+
 public class Main {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int target = in.nextInt();
-        int n = in.nextInt();
-        StringBuilder sb = new StringBuilder();
-        while (target > 0) {
-            if (target % n >= 10) {
-                sb.append((char) (target % n + 'A' - 10));
-                target = target / n;
-                continue;
-            }
-            sb.append(target % n);
-            target = target / n;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int[] arr = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        int quotient = arr[0];  // 몫
+        int base = arr[1];      // 진법
+        Stack<Integer> remainder = new Stack<>();   // 나머지 값을 넣을 스택
+
+        while (quotient > 0 && quotient !=0) {
+            remainder.push(quotient % base);    // 나머지값 스택에 저장
+            quotient = quotient / base;         // 나눈 후 몫 저장
         }
-        System.out.println(sb.reverse());
+
+        // 스택에서 하나씩 꺼내어 결과 출력 (단, 10부터는 알파벳으로 변환)
+        while(!remainder.isEmpty()) {
+            int num = remainder.pop();
+            if(num >= 10)
+                bw.write((char)((num - 10) + 'A'));//???????
+            else 
+		            bw.write(num + "");
+        }
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }
