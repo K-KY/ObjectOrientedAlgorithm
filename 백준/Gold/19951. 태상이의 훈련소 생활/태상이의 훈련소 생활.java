@@ -11,34 +11,29 @@
  * */
 
 import java.io.*;
-import java.util.Scanner;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
+        String[] nm = br.readLine().split(" ");
+        int n = Integer.parseInt(nm[0]);
+        int m = Integer.parseInt(nm[1]);
 
-        int[] grd = new int[n];
+        int[] grd = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         int[] cmd = new int[n + 1];
-        for (int i = 0; i < n; i++) {
-            grd[i] = sc.nextInt();
-        }
 
         for (int i = 0; i < m; i++) {
-            int x = sc.nextInt();
-            int y = sc.nextInt();
-            int d = sc.nextInt();
-            cmd[x - 1] += d;
-            cmd[y] += -d;
+            int[] xyd = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            cmd[xyd[0] - 1] += xyd[2];
+            cmd[xyd[1]] += -xyd[2];
         }
 
         int stack = 0;
-        int grdIdx = 0;
         for (int i = 0; i < n; i++) {
             stack += cmd[i];
-            grd[grdIdx++] += stack;
+            grd[i] += stack;
 
         }
         StringJoiner sj = new StringJoiner(" ");
