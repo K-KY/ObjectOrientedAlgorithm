@@ -16,7 +16,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Scanner sc = new Scanner(System.in);
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));;
         String[] nm = br.readLine().split(" ");
         int n = Integer.parseInt(nm[0]);
         int m = Integer.parseInt(nm[1]);
@@ -34,12 +34,8 @@ public class Main {
         for (int i = 0; i < n; i++) {
             stack += cmd[i];
             grd[i] += stack;
-
+            bw.write(grd[i] + " ");
         }
-        StringJoiner sj = new StringJoiner(" ");
-        for (int i : grd) {
-            sj.add(Integer.toString(i));
-        }
-        System.out.println(sj);
+        bw.flush();
     }
 }
